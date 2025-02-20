@@ -3,13 +3,15 @@ import Home from "./pages/home/Home";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Offers from "./pages/OFFers";
+import Offers from "./pages/Offers";
 import ForgotPassword from "./pages/ForgotPassword";
+import { Header } from "./components/shared/Header";
 
 function App() {
   return (
     <>
       <Router>
+        <Header />
         <Routes>
           <Route path="*" element={<div>404</div>} />
           <Route path="/" element={<Home />} />
