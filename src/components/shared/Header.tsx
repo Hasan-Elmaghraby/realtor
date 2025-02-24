@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../../../public/images/logo.svg";
+import logo from "../../assets/images/logo.svg";
 import classNames from "classnames";
 
 export const Header = () => {
