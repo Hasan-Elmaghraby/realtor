@@ -28,7 +28,7 @@ export const OAuth = () => {
       navigate("/");
       toast.success("You entered succuss");
     } catch (error) {
-      toast.error("You commit something");
+      toast.error("You commit something" + error);
     }
   };
   return (
