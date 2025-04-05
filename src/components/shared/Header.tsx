@@ -1,12 +1,26 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.svg";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { getAuth } from "firebase/auth";
 
 export const Header = () => {
+  const [pageState, setPageState] = useState("Sign In");
   const location = useLocation();
   const navigate = useNavigate();
 
-  const pathMathRoute = (route: string) => {
+  const auth = getAuth();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setPageState("Profile");
+      } else {
+        setPageState("Sign In");
+      }
+    });
+  }, [auth]);
+  const pathMatchRoute = (route: string) => {
     if (route === location.pathname) {
       return true;
     }
@@ -31,14 +45,14 @@ export const Header = () => {
           <ul className="flex space-x-10">
             <li
               className={`${classes}
-              ${pathMathRoute("/") && "!text-black !border-b-red-500"}`}
+              ${pathMatchRoute("/") && "!text-black !border-b-red-500"}`}
               onClick={() => navigate("/")}
             >
               home
             </li>
             <li
               className={`${classes} ${
-                pathMathRoute("/offers") && "!text-black !border-b-red-500"
+                pathMatchRoute("/offers") && "!text-black !border-b-red-500"
               }`}
               onClick={() => navigate("/offers")}
             >
@@ -46,11 +60,12 @@ export const Header = () => {
             </li>
             <li
               className={`${classes} ${
-                pathMathRoute("/sign-in") && "!text-black !border-b-red-500"
+                (pathMatchRoute("/sign-in") || pathMatchRoute("/profile")) &&
+                "!text-black !border-b-red-500"
               }`}
               onClick={() => navigate("/sign-in")}
             >
-              Sign in
+              {pageState}
             </li>
           </ul>
         </div>
