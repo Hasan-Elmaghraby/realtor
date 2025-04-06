@@ -16,7 +16,7 @@ const SignIn = () => {
 
   const { email, password } = formData;
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
