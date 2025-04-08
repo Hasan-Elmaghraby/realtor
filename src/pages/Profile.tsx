@@ -143,19 +143,26 @@ const Profile = () => {
       <div className="mt-6">
         {!loading && listings.length > 0 && (
           <>
-            <h2 className="text-2xl font-semibold mb-6">Your Listings</h2>
-            <ul className="flex flex-col divide-y divide-gray-200">
-              {listings.map((listing) => (
-                <ListingItem
-                  key={listing.id}
-                  listing={listing.name}
-                  id={listing.id}
-                />
-              ))}
+            <h2 className="text-2xl font-semibold mb-6 text-center">
+              Your Listings
+            </h2>
+            <ul className=" sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6 mb-6 ">
+              {listings.map((listing) =>
+                listing?.id ? (
+                  <ListingItem
+                    key={listing.id}
+                    id={listing.id}
+                    listing={listing}
+                  />
+                ) : (
+                  <p key={Math.random()}>Listing data is missing an ID</p>
+                )
+              )}
             </ul>
           </>
         )}
       </div>
+
       {loading && <Spinner />}
     </section>
   );

@@ -80,18 +80,40 @@ const CreateListing = () => {
       return;
     }
 
-    if (images.length > 6) {
+    if ((formData.images as FileList).length > 6) {
       setLoading(false);
       toast.error("Max 6 images");
       return;
     }
 
-    try {
-      const response = await axios.post("http://localhost:3001/listings", {
-        ...formData,
-        userId: user?.uid,
+    const convertToBase64 = (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
       });
+    };
 
+    try {
+      const imageArray = Array.from(formData.images as FileList);
+
+      const base64Images = await Promise.all(
+        imageArray.map((image) => convertToBase64(image))
+      );
+
+      const formDataToSend = {
+        ...formData,
+        images: base64Images,
+        userId: user?.uid,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3001/listings",
+        formDataToSend
+      );
+
+      console.log(response.data);
       toast.success("Listing created successfully!");
       navigate("/category");
     } catch (error) {
