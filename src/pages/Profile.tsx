@@ -1,15 +1,22 @@
 import { getAuth, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 import { FcHome } from "react-icons/fc";
+import axios from "axios";
+import { Spinner } from "../components/shared/Spinner";
+import { ListingItem } from "../components/ListingItem";
 
 const Profile = () => {
   const auth = getAuth();
+  const user = auth.currentUser;
+
   const navigate = useNavigate();
+  const [listings, setListings] = useState([]);
   const [changeDetail, setChangeDetail] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
     name: auth.currentUser?.displayName,
@@ -53,6 +60,30 @@ const Profile = () => {
       toast.error("Could not update profile details");
     }
   };
+
+  useEffect(() => {
+    async function fetchUserListings() {
+      if (user) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/listings?userId=${user.uid}`
+          );
+          const userListings = response.data.filter(
+            (item: any) => item.userId === user.uid
+          );
+          setListings(userListings);
+          setLoading(false);
+        } catch (error) {
+          console.error("Failed to fetch user listings:", error);
+        }
+      } else {
+        console.log("User not logged in");
+      }
+    }
+
+    fetchUserListings();
+  }, [user]);
+
   return (
     <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
       <h1 className="text-3xl text-center mt-6 font-bold">My Profile</h1>
@@ -108,6 +139,24 @@ const Profile = () => {
           Sell or rent your home
         </button>
       </div>
+
+      <div className="mt-6">
+        {!loading && listings.length > 0 && (
+          <>
+            <h2 className="text-2xl font-semibold mb-6">Your Listings</h2>
+            <ul className="flex flex-col divide-y divide-gray-200">
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.name}
+                  id={listing.id}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+      {loading && <Spinner />}
     </section>
   );
 };

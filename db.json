@@ -1,0 +1,101 @@
+{
+  "listings": [
+    {
+      "id": 1,
+      "type": "rent",
+      "name": "House",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": true,
+      "furnished": true,
+      "address": "123 Main St",
+      "description": "This is a description",
+      "offer": true,
+      "regularPrice": 1000,
+      "discountedPrice": 800,
+      "images": {
+        "img1": "https://images.unsplash.com/photo-1580489944761-15a19d654716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
+        "img2": "https://images.unsplash.com/photo-1580489944761-15a19d654716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+      }
+    },
+    {
+      "id": "565b",
+      "type": "rent",
+      "name": "dsf",
+      "bedrooms": 1,
+      "bathrooms": 3,
+      "parking": false,
+      "furnished": false,
+      "address": "dsf",
+      "description": "dfs",
+      "offer": false,
+      "regularPrice": "50",
+      "discountedPrice": 0,
+      "images": {
+        "0": {}
+      },
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
+      "id": "7d41",
+      "type": "rent",
+      "name": "dsfds",
+      "bedrooms": 1,
+      "bathrooms": 3,
+      "parking": true,
+      "furnished": false,
+      "address": "dsf",
+      "description": "dsf",
+      "offer": false,
+      "regularPrice": "50",
+      "discountedPrice": 0,
+      "images": {
+        "0": {}
+      },
+      "latitude": 0,
+      "longitude": 0,
+      "userId": "loEBJxh3Y6RzY4dX8FzYiw2puwy2"
+    },
+    {
+      "id": "2201",
+      "type": "rent",
+      "name": "rwewer",
+      "bedrooms": 1,
+      "bathrooms": 3,
+      "parking": false,
+      "furnished": false,
+      "address": "werewr",
+      "description": "ewr",
+      "offer": false,
+      "regularPrice": "50",
+      "discountedPrice": 0,
+      "images": {
+        "0": {}
+      },
+      "latitude": 0,
+      "longitude": 0,
+      "userId": "loEBJxh3Y6RzY4dX8FzYiw2puwy2"
+    },
+    {
+      "id": "cff2",
+      "type": "rent",
+      "name": "Ahmed",
+      "bedrooms": 1,
+      "bathrooms": 3,
+      "parking": false,
+      "furnished": false,
+      "address": "sdasd",
+      "description": "sda",
+      "offer": false,
+      "regularPrice": "50",
+      "discountedPrice": 0,
+      "images": {
+        "0": {}
+      },
+      "latitude": 0,
+      "longitude": 0,
+      "userId": "loEBJxh3Y6RzY4dX8FzYiw2puwy2"
+    }
+  ]
+}

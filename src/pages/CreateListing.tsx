@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "../components/shared/Spinner";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const CreateListing = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+  const user = auth.currentUser;
+
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -83,7 +86,20 @@ const CreateListing = () => {
       return;
     }
 
-    navigate("/category");
+    try {
+      const response = await axios.post("http://localhost:3001/listings", {
+        ...formData,
+        userId: user?.uid,
+      });
+
+      toast.success("Listing created successfully!");
+      navigate("/category");
+    } catch (error) {
+      console.error("Failed to save listing:", error);
+      toast.error("Something went wrong while saving");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
