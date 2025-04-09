@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { Header } from "./components/shared/Header";
 import { PrivateRoute } from "./components/PrivateRoute";
 import CreateListing from "./pages/CreateListing";
+import EditListing from "./pages/EditListing";
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           <Route path="offers" element={<Offers />} />
           <Route path="create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListing />} />
+          </Route>
+          <Route path="edit-listing" element={<PrivateRoute />}>
+            <Route path="/edit-listing/:id" element={<EditListing />} />
           </Route>
         </Routes>
       </Router>
