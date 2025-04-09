@@ -29,13 +29,6 @@ const Profile = () => {
     navigate("/");
   };
 
-  const onEdit = () => {
-    if (changeDetail) {
-      onSubmit();
-    }
-    setChangeDetail(!changeDetail);
-  };
-
   const onChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -83,6 +76,19 @@ const Profile = () => {
 
     fetchUserListings();
   }, [user]);
+
+  const onDelete = async (listingId: string) => {
+    if (window.confirm("Are you sure you want to delete?")) {
+      await axios.delete(`http://localhost:3001/listings/${listingId}`);
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      );
+      setListings(updatedListings);
+      toast.success("Listing deleted");
+    }
+  };
+
+  const onEdit = (listingId: string) => navigate(`/edit-listing/${listingId}`);
 
   return (
     <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -153,6 +159,8 @@ const Profile = () => {
                     key={listing.id}
                     id={listing.id}
                     listing={listing}
+                    onDelete={() => onDelete(listing.id)}
+                    onEdit={() => onEdit(listing.id)}
                   />
                 ) : (
                   <p key={Math.random()}>Listing data is missing an ID</p>

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdEdit } from "react-icons/md";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
-export const ListingItem = ({ listing, id }) => {
+export const ListingItem = ({ listing, id, onDelete, onEdit }) => {
   if (!listing) return null;
 
   return (
@@ -50,6 +51,18 @@ export const ListingItem = ({ listing, id }) => {
           </div>
         </div>
       </Link>
+      {onDelete && (
+        <FaTrash
+          className="absolute bottom-3 right-2 text-red-600 cursor-pointer"
+          onClick={() => onDelete(listing.id)}
+        />
+      )}
+      {onEdit && (
+        <MdEdit
+          className="absolute bottom-3 right-6 text-black-600 cursor-pointer"
+          onClick={() => onEdit(listing.id)}
+        />
+      )}
     </li>
   );
 };
