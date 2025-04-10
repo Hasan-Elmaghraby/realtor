@@ -10,9 +10,9 @@
       "furnished": false,
       "address": "mansoure 1st",
       "description": "this is the first card",
-      "offer": false,
-      "regularPrice": "50",
-      "discountedPrice": 0,
+      "offer": true,
+      "regularPrice": "534351",
+      "discountedPrice": "500",
       "images": [
         "https://picsum.photos/id/1/200/300",
         "https://picsum.photos/id/2/200/300"

@@ -24,8 +24,8 @@ const EditListing = () => {
     description: "",
     offer: false,
     regularPrice: 0,
-    discountedPrice: 0 as number,
-    images: [] as any,
+    discountedPrice: 0,
+    // images: [] as any,
     latitude: 0,
     longitude: 0,
   });
@@ -42,7 +42,6 @@ const EditListing = () => {
     offer,
     regularPrice,
     discountedPrice,
-    images,
     latitude,
     longitude,
   } = formData;
@@ -90,7 +89,7 @@ const EditListing = () => {
     if (e.target.files) {
       setFormData((prevState: any) => ({
         ...prevState,
-        images: e.target.files,
+        // images: e.target.files,
       }));
     }
     // Text/Booleans/Numbers
@@ -112,31 +111,30 @@ const EditListing = () => {
       return;
     }
 
-    if ((formData.images as FileList).length > 6) {
-      setLoading(false);
-      toast.error("Max 6 images");
-      return;
-    }
+    // if ((formData.images as FileList).length > 6) {
+    //   setLoading(false);
+    //   toast.error("Max 6 images");
+    //   return;
+    // }
 
-    const convertToBase64 = (file: File): Promise<string> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-      });
-    };
+    // const convertToBase64 = (file: File): Promise<string> => {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result as string);
+    //     reader.onerror = (error) => reject(error);
+    //   });
+    // };
 
     try {
-      const imageArray = Array.from(formData.images as FileList);
+      // const imageArray = Array.from(formData.images as FileList);
 
-      const base64Images = await Promise.all(
-        imageArray.map((image) => convertToBase64(image))
-      );
+      // const base64Images = await Promise.all(
+      //   imageArray.map((image) => convertToBase64(image))
+      // );
 
       const formDataToSend = {
         ...formData,
-        images: base64Images,
         userId: user?.uid,
       };
 
@@ -416,7 +414,6 @@ const EditListing = () => {
             onChange={onChange}
             accept=".jpg,.png,.jpeg"
             multiple
-            required
             className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600"
           />
         </div>
