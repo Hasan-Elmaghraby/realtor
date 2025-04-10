@@ -17,13 +17,18 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import { getAuth } from "firebase/auth";
+import { Contact } from "../components/Contact";
 
 function Listing() {
+  const auth = getAuth();
+
   const { listingId: id } = useParams();
 
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  const [contactLandlord, setContactLandlord] = useState(false);
   useEffect(() => {
     if (!id) return;
 
@@ -87,7 +92,7 @@ function Listing() {
       )}
 
       <div className="m-4 flex flex-col md:flex-row max-w-6xl lg:mx-auto p-5 rounded-lg shadow-lg bg-white lg:space-x-5 ">
-        <div className="w-full h-[200px] lg-[400px] p-3">
+        <div className="w-full  lg-[400px] p-3">
           <p className="text-2xl font-bold mb-3 text-blue-900 ">
             {listing.name} - $
             {listing.ofer
@@ -121,7 +126,7 @@ function Listing() {
             <span className="font-semibold">Description - </span>
             {listing.description}
           </p>
-          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semi-bold  ">
+          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semi-bold mb-6  ">
             <li className="flex items-center whitespace-nowrap gap-2">
               <FaBed className="h-5 w-5 text-black-600" />
               {+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
@@ -139,6 +144,21 @@ function Listing() {
               {listing.furnished ? "Furnished" : "Not furnished"}
             </li>
           </ul>
+          {auth.currentUser &&
+            listing.userId !== auth.currentUser &&
+            !contactLandlord && (
+              <div className="mt-6">
+                <button
+                  onClick={() => {
+                    setContactLandlord(true);
+                  }}
+                  className=" px-7 py-3 bg-blue-600 text-white font-medium  rounded text-sm uppercase shadow-md hover:shadow-lg hover:bg-blue-600 cursor-pointer focus:bg-blue-700 w-full text-center transition duration-150 ease-in-out"
+                >
+                  Contact landlord
+                </button>
+              </div>
+            )}
+          {contactLandlord && <Contact listing={listing} />}
         </div>
         <div className="bg-blue-300 w-full h-[200px] lg-[400px] z-10 over-flow-x-hidden"></div>
       </div>

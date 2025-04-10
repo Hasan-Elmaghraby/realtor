@@ -20,6 +20,27 @@
       "latitude": 0,
       "longitude": 0,
       "userId": "loEBJxh3Y6RzY4dX8FzYiw2puwy2"
+    },
+    {
+      "id": "267c",
+      "type": "rent",
+      "name": "Apartment with poll",
+      "bedrooms": 1,
+      "bathrooms": 3,
+      "parking": true,
+      "furnished": true,
+      "address": "Cairo, mansoura 1st ",
+      "description": "this apartment has two bedrooms and one bathrooms",
+      "offer": true,
+      "regularPrice": "125555",
+      "discountedPrice": "100",
+      "images": [
+        "https://picsum.photos/id/1/200/300",
+        "https://picsum.photos/id/2/200/300"
+      ],
+      "latitude": 0,
+      "longitude": 0,
+      "userId": "zkglMWrCZpZav6vLeQG9CtaioeD2"
     }
   ]
 }
