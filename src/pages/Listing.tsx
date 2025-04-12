@@ -19,6 +19,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { getAuth } from "firebase/auth";
 import { Contact } from "../components/Contact";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 function Listing() {
   const auth = getAuth();
@@ -126,7 +127,7 @@ function Listing() {
             <span className="font-semibold">Description - </span>
             {listing.description}
           </p>
-          <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semi-bold mb-6  ">
+          <ul className="flex items-center flex-wrap space-x-2 sm:space-x-10 text-sm font-semi-bold mb-6  ">
             <li className="flex items-center whitespace-nowrap gap-2">
               <FaBed className="h-5 w-5 text-black-600" />
               {+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
@@ -160,7 +161,22 @@ function Listing() {
             )}
           {contactLandlord && <Contact listing={listing} />}
         </div>
-        <div className="bg-blue-300 w-full h-[200px] lg-[400px] z-10 over-flow-x-hidden"></div>
+        <div className=" w-full h-[200px] lg-[400px] z-10 over-flow-x-hidden">
+          <MapContainer
+            style={{ height: "100%", width: "100%" }}
+            center={[listing?.latitude, listing?.longitude]}
+            zoom={13}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[listing?.latitude, listing?.longitude]}>
+              <Popup>{listing.address}</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </main>
   );
